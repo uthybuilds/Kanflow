@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify your KanFlow account</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #3f3f46;
+        background-color: #f4f4f5;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 500px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      .header {
+        background-color: #09090b;
+        padding: 32px;
+        text-align: center;
+      }
+      .logo-img {
+        height: 40px;
+        width: auto;
+        margin-bottom: 0;
+      }
+      .content {
+        padding: 40px 32px;
+        text-align: center;
+      }
+      .greeting {
+        font-size: 18px;
+        color: #18181b;
+        margin-bottom: 24px;
+        font-weight: 500;
+      }
+      .code-container {
+        margin: 32px 0;
+        background-color: #f4f4f5;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #e4e4e7;
+      }
+      .verification-code {
+        font-family:
+          "SF Mono", SFMono-Regular, ui-monospace, "DejaVu Sans Mono", monospace;
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        color: #2563eb;
+        margin: 0;
+      }
+      .instruction {
+        color: #71717a;
+        font-size: 14px;
+        margin-top: 24px;
+      }
+      .footer {
+        padding: 24px;
+        background-color: #fafafa;
+        text-align: center;
+        font-size: 12px;
+        color: #a1a1aa;
+        border-top: 1px solid #f4f4f5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <!-- REPLACE THE SRC BELOW WITH YOUR PUBLIC LOGO URL -->
+        <!-- Example: https://your-domain.com/logo.png -->
+        <!-- For now, we use a placeholder that generates a text image -->
+        <img
+          src="https://placehold.co/120x40/09090b/ffffff?text=KanFlow"
+          alt="KanFlow"
+          class="logo-img"
+        />
+      </div>
+      <div class="content">
+        <div class="greeting">Dear {{ .Data.full_name }},</div>
+
+        <p style="margin-bottom: 0; color: #52525b">
+          Your verification code is:
+        </p>
+
+        <div class="code-container">
+          <h1 class="verification-code">{{ .Token }}</h1>
+        </div>
+
+        <p style="color: #52525b; margin-bottom: 0">
+          Enter this code to complete your signup and access your workspace.
+        </p>
+
+        <p class="instruction">
+          This code will expire in 10 minutes. If you didn't request this, you
+          can safely ignore this email.
+        </p>
+      </div>
+      <div class="footer">&copy; 2024 KanFlow. All rights reserved.</div>
+    </div>
+  </body>
+</html>
