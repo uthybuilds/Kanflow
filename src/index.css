@@ -41,6 +41,15 @@ body {
   }
 }
 
+/* Prevent zoom on mobile devices */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* Custom Animations */
 @keyframes float {
   0% {
