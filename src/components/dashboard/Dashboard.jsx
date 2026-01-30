@@ -108,7 +108,9 @@ export const Dashboard = ({ session }) => {
   const email = session?.user?.email || "User";
   const fullName = session?.user?.user_metadata?.full_name;
   const avatarUrl = session?.user?.user_metadata?.avatar_url;
-  const initials = (fullName || email).substring(0, 2).toUpperCase();
+  const initials = fullName
+    ? Array.from(fullName)[0].toUpperCase()
+    : email.substring(0, 2).toUpperCase();
 
   const filteredTasks = tasks.filter(
     (t) =>

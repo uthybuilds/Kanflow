@@ -107,7 +107,7 @@ export const ListView = ({ tasks, onTaskClick }) => {
               {task.assignee && (
                 <div className="flex items-center gap-2 text-zinc-400 text-xs">
                   <div className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] border border-zinc-700 text-zinc-300">
-                    {task.assignee.charAt(0).toUpperCase()}
+                    {Array.from(task.assignee)[0].toUpperCase()}
                   </div>
                   <span>{task.assignee}</span>
                 </div>
