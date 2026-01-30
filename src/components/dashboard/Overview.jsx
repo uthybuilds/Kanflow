@@ -78,7 +78,7 @@ export const Overview = ({
           <div className="relative z-10">
             <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">
               {getGreeting()},{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+              <span className="text-blue-400">
                 {displayName}
               </span>
             </h1>
