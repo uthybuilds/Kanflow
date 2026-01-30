@@ -348,7 +348,7 @@ export const SettingsModal = ({
                               className="w-full h-full object-cover"
                             />
                           ) : fullName ? (
-                            fullName.substring(0, 2).toUpperCase()
+                            Array.from(fullName)[0].toUpperCase()
                           ) : (
                             session?.user?.email?.substring(0, 2).toUpperCase()
                           )}

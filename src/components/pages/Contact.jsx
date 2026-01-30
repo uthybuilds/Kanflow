@@ -63,14 +63,10 @@ export const Contact = () => {
         });
 
         if (!response.ok) {
-          console.warn(
-            "Email backend responded with error, but message saved to DB.",
-          );
+          console.warn("Email backend responded with error, but message saved to DB.");
         }
       } catch (emailError) {
-        console.warn(
-          "Email backend unreachable (likely production environment), but message saved to DB.",
-        );
+        console.warn("Email backend unreachable (likely production environment), but message saved to DB.");
       }
 
       toast.success("Message sent successfully!");
