@@ -43,7 +43,7 @@ export const Sidebar = ({
 
       <aside
         className={cn(
-          "w-64 border-r border-zinc-800 bg-zinc-950 flex flex-col h-screen fixed left-0 top-0 z-40 transition-transform duration-300 ease-in-out",
+          "w-64 border-r border-zinc-800 bg-zinc-950 flex flex-col h-[100dvh] fixed left-0 top-0 z-40 transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
@@ -63,7 +63,7 @@ export const Sidebar = ({
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-3 py-6 space-y-1">
+        <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
           <div className="px-3 mb-2">
             <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
               Workspace
