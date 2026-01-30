@@ -44,26 +44,33 @@ export const Contact = () => {
         if (dbError) console.error("Database save error:", dbError);
       }
 
-      // 2. Send Email via Custom Backend
-      // This uses our local Express server which handles the email sending via Gmail SMTP
-      // with a sophisticated HTML template.
-      const response = await fetch("http://localhost:5001/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
-      });
+      // 2. Send Email via Custom Backend (Optional)
+      // This uses our local Express server. We wrap it in a try-catch so that
+      // if the backend is not running (e.g. on Vercel), the user still gets a success message
+      // because the data was saved to Supabase.
+      try {
+        const response = await fetch("http://localhost:5001/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to send email");
+        if (!response.ok) {
+          console.warn(
+            "Email backend responded with error, but message saved to DB.",
+          );
+        }
+      } catch (emailError) {
+        console.warn(
+          "Email backend unreachable (likely production environment), but message saved to DB.",
+        );
       }
 
       toast.success("Message sent successfully!");
