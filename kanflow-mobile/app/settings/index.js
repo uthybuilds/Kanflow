@@ -187,17 +187,8 @@ const IntegrationSetupModal = ({
             <Text style={styles.setupModalTitle}>
               Connect {integrationTitle}
             </Text>
-            <TouchableOpacity
-              onPress={onClose}
-              style={{
-                width: 32,
-                height: 32,
-                justifyContent: "center",
-                alignItems: "center",
-                marginRight: -4,
-              }}
-            >
-              <X size={24} color="#a1a1aa" />
+            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+              <X size={20} color="#a1a1aa" />
             </TouchableOpacity>
           </View>
 
@@ -1313,6 +1304,26 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#27272a",
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#18181b",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#27272a",
+  },
+  closeButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#18181b",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#27272a",
   },
   headerTitle: {
     fontSize: 16,

@@ -57,8 +57,7 @@ export default function ForgotPasswordScreen() {
 
       <View style={styles.content}>
         <Text style={styles.subtitle}>
-          Enter your email address and we'll send you a link to reset your
-          password.
+          Enter your email and we'll send you a link to reset your password
         </Text>
 
         <View style={styles.inputGroup}>
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#18181b",
-    borderRadius: 8,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: "#27272a",
   },

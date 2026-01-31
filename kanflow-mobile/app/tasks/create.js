@@ -51,18 +51,20 @@ const StatusChip = ({ value, label, color, selectedValue, onSelect }) => (
 );
 
 const HeaderLeft = () => (
-  <TouchableOpacity 
-    onPress={() => router.back()} 
-    style={{ 
-      marginRight: 10,
+  <TouchableOpacity
+    onPress={() => router.back()}
+    style={{
       width: 40,
       height: 40,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginLeft: -8
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#18181b",
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: "#27272a",
     }}
   >
-    <X size={24} color="#fff" />
+    <X size={20} color="#fff" />
   </TouchableOpacity>
 );
 
@@ -79,6 +81,7 @@ export default function CreateTaskScreen() {
     navigation.setOptions({
       headerShown: true,
       title: "New Task",
+      headerTitleAlign: "center",
       headerStyle: { backgroundColor: "#09090b" },
       headerTintColor: "#fff",
       presentation: "modal",

@@ -39,8 +39,20 @@ const saveGuestTasks = async (tasks) => {
 
 export const taskService = {
   async getTasks() {
+    // Load deleted external tasks
+    let deletedExternalTasks = [];
+    try {
+      const stored = await AsyncStorage.getItem("deleted_external_tasks");
+      if (stored) {
+        deletedExternalTasks = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.error("Failed to load deleted external tasks", e);
+    }
+
     if (await isGuestMode()) {
       const tasks = await getGuestTasks();
+      // ... guest logic ...
       if (tasks.length === 0) {
         // Return some initial mock data for guests
         const initialTasks = [
@@ -396,6 +408,11 @@ export const taskService = {
       console.error("Failed to load integrations", e);
     }
 
+    // Filter out locally deleted external tasks
+    if (deletedExternalTasks.length > 0) {
+      allTasks = allTasks.filter((t) => !deletedExternalTasks.includes(t.id));
+    }
+
     return allTasks;
   },
 
@@ -495,8 +512,34 @@ export const taskService = {
   },
 
   async deleteTask(id) {
-    // User requested ability to delete external tasks locally
-    // Removed restriction for external task IDs (gh-, gl-, etc.)
+    // Check if it's an external task (by ID prefix)
+    const isExternal =
+      typeof id === "string" &&
+      (id.startsWith("gh-") ||
+        id.startsWith("gl-") ||
+        id.startsWith("sen-") ||
+        id.startsWith("fig-") ||
+        id.startsWith("zoom-") ||
+        id.startsWith("slack-") ||
+        id.startsWith("disc-"));
+
+    if (isExternal) {
+      try {
+        const stored = await AsyncStorage.getItem("deleted_external_tasks");
+        const deletedTasks = stored ? JSON.parse(stored) : [];
+        if (!deletedTasks.includes(id)) {
+          deletedTasks.push(id);
+          await AsyncStorage.setItem(
+            "deleted_external_tasks",
+            JSON.stringify(deletedTasks),
+          );
+        }
+        return true;
+      } catch (e) {
+        console.error("Failed to delete external task locally", e);
+        throw e;
+      }
+    }
 
     if (await isGuestMode()) {
       const tasks = await getGuestTasks();
