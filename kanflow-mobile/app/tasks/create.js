@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Stack, router } from "expo-router";
+import { Stack, router, useNavigation } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { taskService } from "../../src/services/taskService";
 import { supabase } from "../../src/lib/supabase";
@@ -56,12 +56,24 @@ const HeaderLeft = () => (
 );
 
 export default function CreateTaskScreen() {
+  const navigation = useNavigation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("medium");
   const [status, setStatus] = useState("todo");
   const [dueDate, setDueDate] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "New Task",
+      headerStyle: { backgroundColor: "#09090b" },
+      headerTintColor: "#fff",
+      presentation: "modal",
+      headerLeft: () => <HeaderLeft />,
+    });
+  }, [navigation]);
 
   const handleSubmit = async () => {
     if (!title.trim()) {
@@ -102,16 +114,6 @@ export default function CreateTaskScreen() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: "New Task",
-          headerStyle: { backgroundColor: "#09090b" },
-          headerTintColor: "#fff",
-          presentation: "modal",
-          headerLeft: () => <HeaderLeft />,
-        }}
-      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}

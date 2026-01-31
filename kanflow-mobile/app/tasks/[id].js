@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Stack, router, useLocalSearchParams } from "expo-router";
+import {
+  Stack,
+  router,
+  useLocalSearchParams,
+  useNavigation,
+} from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { taskService } from "../../src/services/taskService";
 import { supabase } from "../../src/lib/supabase";
@@ -56,6 +61,7 @@ const HeaderLeft = () => (
 );
 
 export default function EditTaskScreen() {
+  const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -68,6 +74,39 @@ export default function EditTaskScreen() {
   useEffect(() => {
     fetchTask();
   }, [id]);
+
+  const handleDelete = useCallback(async () => {
+    Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await taskService.deleteTask(id);
+            router.back();
+          } catch (error) {
+            Alert.alert("Error", error.message);
+          }
+        },
+      },
+    ]);
+  }, [id]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "Edit Task",
+      headerStyle: { backgroundColor: "#09090b" },
+      headerTintColor: "#fff",
+      headerLeft: () => <HeaderLeft />,
+      headerRight: () => (
+        <TouchableOpacity onPress={handleDelete}>
+          <Trash2 size={24} color="#ef4444" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, handleDelete]);
 
   const fetchTask = async () => {
     try {
@@ -114,24 +153,6 @@ export default function EditTaskScreen() {
     }
   };
 
-  const handleDelete = async () => {
-    Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          try {
-            await taskService.deleteTask(id);
-            router.back();
-          } catch (error) {
-            Alert.alert("Error", error.message);
-          }
-        },
-      },
-    ]);
-  };
-
   const setDate = (daysToAdd) => {
     const date = new Date();
     date.setDate(date.getDate() + daysToAdd);
@@ -149,20 +170,6 @@ export default function EditTaskScreen() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: "Edit Task",
-          headerStyle: { backgroundColor: "#09090b" },
-          headerTintColor: "#fff",
-          headerLeft: () => <HeaderLeft />,
-          headerRight: () => (
-            <TouchableOpacity onPress={handleDelete}>
-              <Trash2 size={24} color="#ef4444" />
-            </TouchableOpacity>
-          ),
-        }}
-      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
