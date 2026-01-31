@@ -17,6 +17,44 @@ import { taskService } from "../../src/services/taskService";
 import { supabase } from "../../src/lib/supabase";
 import { X, Calendar } from "lucide-react-native";
 
+const PriorityChip = ({ value, label, color, selectedValue, onSelect }) => (
+  <TouchableOpacity
+    style={[
+      styles.chip,
+      selectedValue === value && { backgroundColor: color, borderColor: color },
+    ]}
+    onPress={() => onSelect(value)}
+  >
+    <Text
+      style={[styles.chipText, selectedValue === value && { color: "#fff" }]}
+    >
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
+
+const StatusChip = ({ value, label, color, selectedValue, onSelect }) => (
+  <TouchableOpacity
+    style={[
+      styles.chip,
+      selectedValue === value && { backgroundColor: color, borderColor: color },
+    ]}
+    onPress={() => onSelect(value)}
+  >
+    <Text
+      style={[styles.chipText, selectedValue === value && { color: "#fff" }]}
+    >
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
+
+const HeaderLeft = () => (
+  <TouchableOpacity onPress={() => router.back()} style={{ marginRight: 10 }}>
+    <X size={24} color="#fff" />
+  </TouchableOpacity>
+);
+
 export default function CreateTaskScreen() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -55,34 +93,6 @@ export default function CreateTaskScreen() {
     }
   };
 
-  const PriorityChip = ({ value, label, color }) => (
-    <TouchableOpacity
-      style={[
-        styles.chip,
-        priority === value && { backgroundColor: color, borderColor: color },
-      ]}
-      onPress={() => setPriority(value)}
-    >
-      <Text style={[styles.chipText, priority === value && { color: "#fff" }]}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-
-  const StatusChip = ({ value, label, color }) => (
-    <TouchableOpacity
-      style={[
-        styles.chip,
-        status === value && { backgroundColor: color, borderColor: color },
-      ]}
-      onPress={() => setStatus(value)}
-    >
-      <Text style={[styles.chipText, status === value && { color: "#fff" }]}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-
   const setDate = (daysToAdd) => {
     const date = new Date();
     date.setDate(date.getDate() + daysToAdd);
@@ -99,14 +109,7 @@ export default function CreateTaskScreen() {
           headerStyle: { backgroundColor: "#09090b" },
           headerTintColor: "#fff",
           presentation: "modal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={{ marginRight: 10 }}
-            >
-              <X size={24} color="#fff" />
-            </TouchableOpacity>
-          ),
+          headerLeft: () => <HeaderLeft />,
         }}
       />
 
@@ -144,18 +147,54 @@ export default function CreateTaskScreen() {
           <View style={styles.formGroup}>
             <Text style={styles.label}>Priority</Text>
             <View style={styles.chipContainer}>
-              <PriorityChip value="low" label="Low" color="#3b82f6" />
-              <PriorityChip value="medium" label="Medium" color="#eab308" />
-              <PriorityChip value="high" label="High" color="#ef4444" />
+              <PriorityChip
+                value="low"
+                label="Low"
+                color="#3b82f6"
+                selectedValue={priority}
+                onSelect={setPriority}
+              />
+              <PriorityChip
+                value="medium"
+                label="Medium"
+                color="#eab308"
+                selectedValue={priority}
+                onSelect={setPriority}
+              />
+              <PriorityChip
+                value="high"
+                label="High"
+                color="#ef4444"
+                selectedValue={priority}
+                onSelect={setPriority}
+              />
             </View>
           </View>
 
           <View style={styles.formGroup}>
             <Text style={styles.label}>Status</Text>
             <View style={styles.chipContainer}>
-              <StatusChip value="todo" label="To Do" color="#3b82f6" />
-              <StatusChip value="in-progress" label="Doing" color="#eab308" />
-              <StatusChip value="done" label="Done" color="#22c55e" />
+              <StatusChip
+                value="todo"
+                label="To Do"
+                color="#3b82f6"
+                selectedValue={status}
+                onSelect={setStatus}
+              />
+              <StatusChip
+                value="in-progress"
+                label="Doing"
+                color="#eab308"
+                selectedValue={status}
+                onSelect={setStatus}
+              />
+              <StatusChip
+                value="done"
+                label="Done"
+                color="#22c55e"
+                selectedValue={status}
+                onSelect={setStatus}
+              />
             </View>
           </View>
 
