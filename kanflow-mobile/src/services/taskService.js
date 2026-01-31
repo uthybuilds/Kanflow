@@ -50,6 +50,17 @@ export const taskService = {
       console.error("Failed to load deleted external tasks", e);
     }
 
+    // Load edited external tasks
+    let editedExternalTasks = {};
+    try {
+      const stored = await AsyncStorage.getItem("edited_external_tasks");
+      if (stored) {
+        editedExternalTasks = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.error("Failed to load edited external tasks", e);
+    }
+
     if (await isGuestMode()) {
       const tasks = await getGuestTasks();
       // ... guest logic ...
@@ -408,6 +419,14 @@ export const taskService = {
       console.error("Failed to load integrations", e);
     }
 
+    // Apply local edits to external tasks
+    allTasks = allTasks.map((t) => {
+      if (editedExternalTasks[t.id]) {
+        return { ...t, ...editedExternalTasks[t.id] };
+      }
+      return t;
+    });
+
     // Filter out locally deleted external tasks
     if (deletedExternalTasks.length > 0) {
       allTasks = allTasks.filter((t) => !deletedExternalTasks.includes(t.id));
@@ -457,9 +476,19 @@ export const taskService = {
         id.startsWith("slack-") ||
         id.startsWith("disc-"))
     ) {
-      throw new Error(
-        "External tasks cannot be edited here. Please edit on the source platform.",
-      );
+      try {
+        const stored = await AsyncStorage.getItem("edited_external_tasks");
+        const editedTasks = stored ? JSON.parse(stored) : {};
+        editedTasks[id] = { ...(editedTasks[id] || {}), ...updates };
+        await AsyncStorage.setItem(
+          "edited_external_tasks",
+          JSON.stringify(editedTasks),
+        );
+        return { id, ...updates };
+      } catch (e) {
+        console.error("Failed to edit external task locally", e);
+        throw e;
+      }
     }
 
     if (await isGuestMode()) {
