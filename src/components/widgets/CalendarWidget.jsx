@@ -155,7 +155,7 @@ export const CalendarWidget = () => {
               type="text"
               placeholder="Event title..."
               autoFocus
-              className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+              className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-base sm:text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-700"
               value={newEvent.title}
               onChange={(e) =>
                 setNewEvent({ ...newEvent, title: e.target.value })
@@ -164,7 +164,7 @@ export const CalendarWidget = () => {
             <div className="flex gap-2">
               <input
                 type="time"
-                className="bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-zinc-700"
+                className="bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-base sm:text-sm text-white outline-none focus:border-zinc-700"
                 value={newEvent.time}
                 onChange={(e) =>
                   setNewEvent({ ...newEvent, time: e.target.value })

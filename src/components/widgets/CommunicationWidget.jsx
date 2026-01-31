@@ -117,7 +117,7 @@ export const CommunicationWidget = ({ session }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="What are you working on?"
-          className="w-full h-full min-h-[80px] bg-zinc-900/50 rounded-2xl border border-zinc-800/50 p-4 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:border-zinc-700 resize-none transition-colors"
+          className="w-full h-full min-h-[80px] bg-zinc-900/50 rounded-2xl border border-zinc-800/50 p-4 text-base sm:text-sm text-zinc-200 placeholder:text-zinc-600 outline-none focus:border-zinc-700 resize-none transition-colors"
         />
 
         <div className="grid grid-cols-2 gap-3">

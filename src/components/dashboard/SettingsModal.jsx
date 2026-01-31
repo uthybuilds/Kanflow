@@ -389,7 +389,7 @@ export const SettingsModal = ({
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="w-full h-12 px-4 rounded-2xl border border-zinc-800/60 bg-zinc-900/30 text-base text-zinc-100 focus:border-zinc-600 focus:bg-zinc-900/80 focus:outline-none focus:ring-4 focus:ring-zinc-800/20 transition-all placeholder:text-zinc-700"
+                        className="w-full h-12 px-4 rounded-2xl border border-zinc-800/60 bg-zinc-900/30 text-base sm:text-sm text-zinc-100 focus:border-zinc-600 focus:bg-zinc-900/80 focus:outline-none focus:ring-4 focus:ring-zinc-800/20 transition-all placeholder:text-zinc-700"
                         placeholder="Your full name"
                       />
                     </div>

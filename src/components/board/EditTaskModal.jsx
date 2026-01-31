@@ -107,13 +107,13 @@ export const EditTaskModal = ({
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-transparent text-xl font-semibold text-zinc-100 placeholder:text-zinc-600 focus:outline-none mb-4"
+              className="w-full bg-transparent text-xl font-semibold text-zinc-100 placeholder:text-zinc-600 focus:outline-none outline-none mb-4"
               placeholder="Issue title"
             />
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full h-[300px] bg-transparent text-sm text-zinc-300 placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed"
+              className="w-full h-[300px] bg-transparent text-base sm:text-sm text-zinc-300 placeholder:text-zinc-600 focus:outline-none outline-none resize-none leading-relaxed"
               placeholder="Add a description..."
             />
           </div>
@@ -127,7 +127,7 @@ export const EditTaskModal = ({
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700"
+                className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:outline-none outline-none focus:border-zinc-700"
               >
                 <option value="todo">To Do</option>
                 <option value="in-progress">In Progress</option>
@@ -143,7 +143,7 @@ export const EditTaskModal = ({
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700"
+                className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:outline-none outline-none focus:border-zinc-700"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -162,7 +162,7 @@ export const EditTaskModal = ({
                   value={assignee}
                   onChange={(e) => setAssignee(e.target.value)}
                   placeholder="Add assignee..."
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700 placeholder:text-zinc-600"
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:outline-none outline-none focus:border-zinc-700 placeholder:text-zinc-600"
                 />
               </div>
 
@@ -176,7 +176,7 @@ export const EditTaskModal = ({
                   value={labels}
                   onChange={(e) => setLabels(e.target.value)}
                   placeholder="Comma separated..."
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700 placeholder:text-zinc-600"
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:outline-none outline-none focus:border-zinc-700 placeholder:text-zinc-600"
                 />
               </div>
 
@@ -189,7 +189,7 @@ export const EditTaskModal = ({
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700"
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:outline-none outline-none focus:border-zinc-700"
                 />
               </div>
             </div>

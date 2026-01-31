@@ -98,7 +98,7 @@ export const QuickNotes = ({ session }) => {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="Type something..."
-          className="w-full h-full bg-transparent text-base text-zinc-300 placeholder:text-zinc-700 resize-none focus:outline-none leading-relaxed font-medium"
+          className="w-full h-full bg-transparent text-base sm:text-sm text-zinc-300 placeholder:text-zinc-700 resize-none outline-none leading-relaxed font-medium"
           spellCheck={false}
         />
       </div>

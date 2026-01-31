@@ -63,10 +63,14 @@ export const Contact = () => {
         });
 
         if (!response.ok) {
-          console.warn("Email backend responded with error, but message saved to DB.");
+          console.warn(
+            "Email backend responded with error, but message saved to DB.",
+          );
         }
       } catch (emailError) {
-        console.warn("Email backend unreachable (likely production environment), but message saved to DB.");
+        console.warn(
+          "Email backend unreachable (likely production environment), but message saved to DB.",
+        );
       }
 
       toast.success("Message sent successfully!");
@@ -215,7 +219,7 @@ export const Contact = () => {
                           onFocus={() => setFocusedField("name")}
                           onBlur={() => setFocusedField(null)}
                           required
-                          className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-sm"
+                          className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-base sm:text-sm"
                           placeholder="John Doe"
                         />
                       </div>
@@ -236,7 +240,7 @@ export const Contact = () => {
                           onFocus={() => setFocusedField("email")}
                           onBlur={() => setFocusedField(null)}
                           required
-                          className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-sm"
+                          className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-base sm:text-sm"
                           placeholder="john@example.com"
                         />
                       </div>
@@ -283,7 +287,7 @@ export const Contact = () => {
                         onFocus={() => setFocusedField("message")}
                         onBlur={() => setFocusedField(null)}
                         required
-                        className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-sm resize-none"
+                        className="w-full bg-transparent px-4 py-3 text-white outline-none placeholder:text-zinc-700 text-base sm:text-sm resize-none"
                         placeholder="Tell me about your project..."
                       ></textarea>
                     </div>

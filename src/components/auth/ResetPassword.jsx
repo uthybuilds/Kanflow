@@ -77,7 +77,7 @@ export const ResetPassword = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-zinc-950/50 border border-zinc-800 rounded-lg text-zinc-100 placeholder:text-zinc-600 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all outline-none"
+                    className="w-full pl-10 pr-4 py-2.5 bg-zinc-950/50 border border-zinc-800 rounded-lg text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all outline-none"
                     placeholder="you@example.com"
                   />
                 </div>

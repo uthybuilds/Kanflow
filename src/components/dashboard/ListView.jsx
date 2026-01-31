@@ -53,12 +53,18 @@ export const ListView = ({ tasks, onTaskClick }) => {
   };
 
   const sortedTasks = [...tasks].sort((a, b) => {
+    // Primary Sort
     if (a[sortConfig.key] < b[sortConfig.key]) {
       return sortConfig.direction === "asc" ? -1 : 1;
     }
     if (a[sortConfig.key] > b[sortConfig.key]) {
       return sortConfig.direction === "asc" ? 1 : -1;
     }
+
+    // Secondary Sort (Always created_at desc for ties)
+    if (a.created_at < b.created_at) return 1;
+    if (a.created_at > b.created_at) return -1;
+
     return 0;
   });
 

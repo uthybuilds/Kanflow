@@ -78,9 +78,7 @@ export const Overview = ({
           <div className="relative z-10">
             <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">
               {getGreeting()},{" "}
-              <span className="text-blue-400">
-                {displayName}
-              </span>
+              <span className="text-blue-400">{displayName}</span>
             </h1>
             <p className="text-zinc-400 text-lg max-w-lg font-light leading-relaxed">
               "{randomQuote}"
@@ -157,6 +155,16 @@ export const Overview = ({
           </div>
         </div>
       </div>
+
+      {/* Recent Tasks List */}
+      {!searchQuery && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-zinc-100">My Tasks</h2>
+          </div>
+          <ListView tasks={tasks} onTaskClick={onTaskClick} />
+        </div>
+      )}
 
       {searchQuery ? (
         <div className="space-y-4">

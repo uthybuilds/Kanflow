@@ -79,7 +79,7 @@ const IntegrationCard = ({
             placeholder={field.placeholder}
             value={values[field.key] || ""}
             onChange={(e) => onChange(field.key, e.target.value)}
-            className="w-full h-11 px-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-300 placeholder:text-zinc-700 focus:outline-none focus:border-zinc-600 focus:bg-zinc-900 focus:ring-4 focus:ring-zinc-800/20 transition-all shadow-sm"
+            className="w-full h-11 px-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 text-base sm:text-sm text-zinc-300 placeholder:text-zinc-700 focus:outline-none outline-none focus:border-zinc-600 focus:bg-zinc-900 focus:ring-4 focus:ring-zinc-800/20 transition-all shadow-sm"
           />
         </div>
       ))}
@@ -126,11 +126,11 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
   const [configs, setConfigs] = useState({
     github: { token: "", repo: "" },
     gitlab: { token: "", projectId: "" },
-    slack: { webhookUrl: "" },
-    discord: { webhookUrl: "" },
-    figma: { token: "", fileKey: "" },
+    slack: { token: "" },
+    discord: { botToken: "", channelId: "" },
+    figma: { token: "", teamId: "" },
     sentry: { token: "", orgSlug: "", projectSlug: "" },
-    zoom: { url: "" },
+    zoom: { accountId: "", clientId: "", clientSecret: "" },
   });
 
   const [loadingStates, setLoadingStates] = useState({});
@@ -276,41 +276,37 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
   };
 
   const handleSlackTest = async () => {
-    const { webhookUrl } = configs.slack;
-    if (!webhookUrl) return toast.error("Missing Slack Webhook URL");
+    const { token } = configs.slack;
+    if (!token) return toast.error("Missing Slack Token");
 
     setLoadingStates((prev) => ({ ...prev, slack: true }));
     try {
-      const res = await fetch(webhookUrl, {
+      const res = await fetch("https://slack.com/api/auth.test", {
         method: "POST",
-        body: JSON.stringify({
-          text: "Hello from KanFlow! Integration is working.",
-        }),
+        headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Failed to send Slack message");
-      toast.success("Test message sent to Slack!");
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "Failed to connect to Slack");
+      toast.success(`Connected to Slack as ${data.user}`);
     } catch (err) {
-      toast.error("Failed to send to Slack (Check CORS/Proxy)");
+      toast.error(err.message);
     } finally {
       setLoadingStates((prev) => ({ ...prev, slack: false }));
     }
   };
 
   const handleDiscordTest = async () => {
-    const { webhookUrl } = configs.discord;
-    if (!webhookUrl) return toast.error("Missing Discord Webhook URL");
+    const { botToken } = configs.discord;
+    if (!botToken) return toast.error("Missing Discord Bot Token");
 
     setLoadingStates((prev) => ({ ...prev, discord: true }));
     try {
-      const res = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: "Hello from KanFlow! Integration is working.",
-        }),
+      const res = await fetch("https://discord.com/api/users/@me", {
+        headers: { Authorization: `Bot ${botToken}` },
       });
-      if (!res.ok) throw new Error("Failed to send Discord message");
-      toast.success("Test message sent to Discord!");
+      if (!res.ok) throw new Error("Failed to connect to Discord");
+      const data = await res.json();
+      toast.success(`Connected to Discord as ${data.username}`);
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -319,18 +315,17 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
   };
 
   const handleFigmaSync = async () => {
-    const { token, fileKey } = configs.figma;
-    if (!token || !fileKey)
-      return toast.error("Missing Figma Token or File Key");
+    const { token } = configs.figma;
+    if (!token) return toast.error("Missing Figma Token");
 
     setLoadingStates((prev) => ({ ...prev, figma: true }));
     try {
-      const res = await fetch(`https://api.figma.com/v1/files/${fileKey}`, {
+      const res = await fetch("https://api.figma.com/v1/me", {
         headers: { "X-Figma-Token": token },
       });
-      if (!res.ok) throw new Error(`Figma API Error: ${res.status}`);
+      if (!res.ok) throw new Error("Failed to connect to Figma");
       const data = await res.json();
-      toast.success(`Connected to Figma: ${data.name}`);
+      toast.success(`Connected to Figma as ${data.handle}`);
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -383,23 +378,28 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     }
   };
 
-  const handleGenericSync = async (provider, name) => {
-    setLoadingStates((prev) => ({ ...prev, [provider]: true }));
-    // Simulate network delay for UX
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+  const handleZoomTest = async () => {
+    const { accountId, clientId, clientSecret } = configs.zoom;
+    if (!accountId || !clientId || !clientSecret)
+      return toast.error("Missing Zoom credentials");
 
-    // Check if fields are filled
-    const config = configs[provider];
-    const isConfigured = Object.values(config).every(
-      (val) => val && val.length > 0,
-    );
-
-    if (!isConfigured) {
-      toast.error(`Please configure ${name} settings first`);
-    } else {
-      toast.info(`${name} connection verified (Simulated)`);
+    setLoadingStates((prev) => ({ ...prev, zoom: true }));
+    try {
+      const authString = btoa(`${clientId}:${clientSecret}`);
+      const res = await fetch(
+        `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${accountId}`,
+        {
+          method: "POST",
+          headers: { Authorization: `Basic ${authString}` },
+        },
+      );
+      if (!res.ok) throw new Error("Failed to connect to Zoom");
+      toast.success("Connected to Zoom!");
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, zoom: false }));
     }
-    setLoadingStates((prev) => ({ ...prev, [provider]: false }));
   };
 
   const providers = [
@@ -434,14 +434,14 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     {
       id: "slack",
       title: "Slack",
-      description: "Send notifications to a channel when tasks are updated.",
+      description: "Fetch reminders and notifications from Slack.",
       icon: Slack,
       fields: [
         {
-          key: "webhookUrl",
-          label:
-            "Webhook URL (Create app at api.slack.com -> Incoming Webhooks)",
-          placeholder: "https://hooks.slack.com/...",
+          key: "token",
+          label: "User OAuth Token",
+          placeholder: "xoxp-...",
+          type: "password",
         },
       ],
       action: handleSlackTest,
@@ -450,13 +450,19 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     {
       id: "discord",
       title: "Discord",
-      description: "Post task updates to a Discord channel via webhook.",
+      description: "Fetch channel messages as tasks.",
       icon: Disc,
       fields: [
         {
-          key: "webhookUrl",
-          label: "Webhook URL (Edit Channel -> Integrations -> Webhooks)",
-          placeholder: "https://discord.com/api/webhooks/...",
+          key: "botToken",
+          label: "Bot Token",
+          placeholder: "MTA...",
+          type: "password",
+        },
+        {
+          key: "channelId",
+          label: "Channel ID",
+          placeholder: "123456...",
         },
       ],
       action: handleDiscordTest,
@@ -465,15 +471,16 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     {
       id: "figma",
       title: "Figma",
-      description: "Link Figma files to tasks and view metadata.",
+      description: "Link Figma projects to tasks.",
       icon: Figma,
       fields: [
         {
           key: "token",
           label: "Personal Access Token",
           placeholder: "figd_...",
+          type: "password",
         },
-        { key: "fileKey", label: "File Key", placeholder: "File ID" },
+        { key: "teamId", label: "Team ID", placeholder: "Team ID" },
       ],
       action: handleFigmaSync,
       actionLabel: "Verify",
@@ -481,10 +488,15 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     {
       id: "sentry",
       title: "Sentry",
-      description: "Create tasks from Sentry issues automatically.",
+      description: "View Sentry issues automatically.",
       icon: AlertTriangle,
       fields: [
-        { key: "token", label: "Auth Token", placeholder: "sntry_..." },
+        {
+          key: "token",
+          label: "Auth Token",
+          placeholder: "sntry_...",
+          type: "password",
+        },
         { key: "orgSlug", label: "Org Slug", placeholder: "my-org" },
         {
           key: "projectSlug",
@@ -498,15 +510,28 @@ export const IntegrationsPanel = ({ session, onTasksUpdated }) => {
     {
       id: "zoom",
       title: "Zoom",
-      description: "Add a Zoom meeting link to your dashboard widget.",
+      description: "Fetch scheduled meetings as tasks.",
       icon: Video,
       fields: [
         {
-          key: "url",
-          label: "Meeting URL",
-          placeholder: "https://zoom.us/j/...",
+          key: "accountId",
+          label: "Account ID",
+          placeholder: "From App Marketplace",
+        },
+        {
+          key: "clientId",
+          label: "Client ID",
+          placeholder: "From App Marketplace",
+        },
+        {
+          key: "clientSecret",
+          label: "Client Secret",
+          placeholder: "From App Marketplace",
+          type: "password",
         },
       ],
+      action: handleZoomTest,
+      actionLabel: "Test",
     },
   ];
 

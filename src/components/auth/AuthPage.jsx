@@ -296,7 +296,7 @@ export const AuthPage = () => {
                         placeholder="Full Name"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                        className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
                         required
                       />
                     )}
@@ -305,7 +305,7 @@ export const AuthPage = () => {
                       placeholder="name@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                      className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
                       required
                     />
                     {view !== "forgot_password" && (
@@ -315,7 +315,7 @@ export const AuthPage = () => {
                           placeholder="Password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all pr-10"
+                          className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none outline-none focus:ring-4 focus:ring-blue-500/10 transition-all pr-10"
                           required
                         />
                         <button

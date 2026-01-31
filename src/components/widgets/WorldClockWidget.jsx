@@ -104,14 +104,14 @@ export const WorldClockWidget = () => {
             placeholder="City Name (e.g. Paris)"
             value={newCity}
             onChange={(e) => setNewCity(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-base sm:text-sm text-white outline-none focus:border-emerald-500"
           />
           <input
             type="text"
             placeholder="Timezone (e.g. Europe/Paris)"
             value={newZone}
             onChange={(e) => setNewZone(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-base sm:text-sm text-white outline-none focus:border-emerald-500"
           />
           <button
             type="submit"

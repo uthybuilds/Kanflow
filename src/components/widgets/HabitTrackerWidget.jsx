@@ -181,7 +181,7 @@ export const HabitTrackerWidget = () => {
               type="text"
               placeholder="Habit name..."
               autoFocus
-              className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+              className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-xl px-3 py-2 text-base sm:text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-700"
               value={newHabitName}
               onChange={(e) => setNewHabitName(e.target.value)}
             />

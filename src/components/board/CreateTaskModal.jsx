@@ -93,7 +93,7 @@ export const CreateTaskModal = ({
               placeholder="What needs to be done?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 outline-none"
               autoFocus
             />
           </div>
@@ -106,7 +106,7 @@ export const CreateTaskModal = ({
               placeholder="Add details..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 h-20 resize-none"
+              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 h-20 resize-none outline-none"
             />
           </div>
 
@@ -118,7 +118,7 @@ export const CreateTaskModal = ({
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1.5 text-sm text-zinc-300 focus:border-blue-500/50 focus:outline-none"
+                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:border-blue-500/50 focus:outline-none outline-none"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -132,7 +132,7 @@ export const CreateTaskModal = ({
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1.5 text-sm text-zinc-300 focus:border-blue-500/50 focus:outline-none"
+                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1.5 text-base sm:text-sm text-zinc-300 focus:border-blue-500/50 focus:outline-none outline-none"
               >
                 <option value="todo">To Do</option>
                 <option value="in-progress">In Progress</option>
@@ -152,7 +152,7 @@ export const CreateTaskModal = ({
                 placeholder="Assign to..."
                 value={assignee}
                 onChange={(e) => setAssignee(e.target.value)}
-                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none"
+                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none outline-none"
               />
             </div>
             <div>
@@ -163,7 +163,7 @@ export const CreateTaskModal = ({
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none"
+                className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none outline-none"
               />
             </div>
           </div>
@@ -177,7 +177,7 @@ export const CreateTaskModal = ({
               placeholder="bug, feature, etc."
               value={labels}
               onChange={(e) => setLabels(e.target.value)}
-              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none"
+              className="w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500/50 focus:outline-none outline-none"
             />
           </div>
 
