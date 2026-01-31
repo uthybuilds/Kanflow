@@ -42,6 +42,37 @@ export const integrationService = {
         },
       };
       await integrationService.saveIntegrations(updated);
+
+      // When reconnecting, clear the "deleted" blacklist for this provider
+      // so tasks reappear.
+      try {
+        const stored = await AsyncStorage.getItem("deleted_external_tasks");
+        if (stored) {
+          const deletedTasks = JSON.parse(stored);
+          const prefixMap = {
+            github: "gh-",
+            gitlab: "gl-",
+            sentry: "sen-",
+            figma: "fig-",
+            zoom: "zoom-",
+            slack: "slack-",
+            discord: "disc-",
+          };
+          const prefix = prefixMap[key];
+          if (prefix) {
+            const newDeletedTasks = deletedTasks.filter(
+              (id) => !id.startsWith(prefix),
+            );
+            await AsyncStorage.setItem(
+              "deleted_external_tasks",
+              JSON.stringify(newDeletedTasks),
+            );
+          }
+        }
+      } catch (e) {
+        console.error("Failed to clear deleted tasks on connect", e);
+      }
+
       return updated;
     } catch (error) {
       console.error("Failed to connect integration", error);
