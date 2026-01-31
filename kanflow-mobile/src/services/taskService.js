@@ -495,20 +495,8 @@ export const taskService = {
   },
 
   async deleteTask(id) {
-    if (
-      typeof id === "string" &&
-      (id.startsWith("gh-") ||
-        id.startsWith("gl-") ||
-        id.startsWith("sen-") ||
-        id.startsWith("fig-") ||
-        id.startsWith("zoom-") ||
-        id.startsWith("slack-") ||
-        id.startsWith("disc-"))
-    ) {
-      throw new Error(
-        "External tasks cannot be deleted here. Please remove on the source platform.",
-      );
-    }
+    // User requested ability to delete external tasks locally
+    // Removed restriction for external task IDs (gh-, gl-, etc.)
 
     if (await isGuestMode()) {
       const tasks = await getGuestTasks();

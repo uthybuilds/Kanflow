@@ -115,7 +115,10 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   controlButton: {
-    padding: 4,
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
   content: {
     flex: 1,

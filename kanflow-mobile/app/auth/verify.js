@@ -127,7 +127,10 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   backButton: {
-    padding: 8,
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#18181b",
     borderRadius: 8,
     borderWidth: 1,

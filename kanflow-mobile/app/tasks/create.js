@@ -51,7 +51,17 @@ const StatusChip = ({ value, label, color, selectedValue, onSelect }) => (
 );
 
 const HeaderLeft = () => (
-  <TouchableOpacity onPress={() => router.back()} style={{ marginRight: 10 }}>
+  <TouchableOpacity 
+    onPress={() => router.back()} 
+    style={{ 
+      marginRight: 10,
+      width: 40,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: -8
+    }}
+  >
     <X size={24} color="#fff" />
   </TouchableOpacity>
 );

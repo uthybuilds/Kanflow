@@ -197,7 +197,10 @@ const styles = StyleSheet.create({
     color: "#FF9F0A", // Apple Orange
   },
   addButton: {
-    padding: 4,
+    width: 32,
+    height: 32,
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
     flexDirection: "row",

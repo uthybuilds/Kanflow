@@ -187,7 +187,16 @@ const IntegrationSetupModal = ({
             <Text style={styles.setupModalTitle}>
               Connect {integrationTitle}
             </Text>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={{
+                width: 32,
+                height: 32,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: -4,
+              }}
+            >
               <X size={24} color="#a1a1aa" />
             </TouchableOpacity>
           </View>

@@ -102,7 +102,16 @@ export default function EditTaskScreen() {
       headerTintColor: "#fff",
       headerLeft: () => <HeaderLeft />,
       headerRight: () => (
-        <TouchableOpacity onPress={handleDelete}>
+        <TouchableOpacity
+          onPress={handleDelete}
+          style={{
+            width: 40,
+            height: 40,
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: -8, // Adjust for padding to align visually
+          }}
+        >
           <Trash2 size={24} color="#ef4444" />
         </TouchableOpacity>
       ),
