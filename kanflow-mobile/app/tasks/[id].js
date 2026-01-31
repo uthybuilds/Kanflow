@@ -18,6 +18,7 @@ import {
   useNavigation,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { taskService } from "../../src/services/taskService";
 import { supabase } from "../../src/lib/supabase";
 import { ArrowLeft, Trash2, Calendar } from "lucide-react-native";
@@ -168,7 +169,7 @@ export default function EditTaskScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <StatusBar style="light" />
 
       <KeyboardAvoidingView
@@ -284,23 +285,23 @@ export default function EditTaskScreen() {
               </TouchableOpacity>
             </View>
           </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={handleUpdate}
+              disabled={saving}
+            >
+              {saving ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.saveButtonText}>Save Changes</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={handleUpdate}
-          disabled={saving}
-        >
-          {saving ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.saveButtonText}>Save Changes</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -315,7 +316,12 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingTop: 40,
     gap: 24,
+    paddingBottom: 40,
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
   formGroup: {
     gap: 8,
@@ -374,12 +380,6 @@ const styles = StyleSheet.create({
     color: "#a1a1aa",
     fontSize: 12,
     fontWeight: "500",
-  },
-  footer: {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#27272a",
-    backgroundColor: "#09090b",
   },
   saveButton: {
     backgroundColor: "#2563eb",

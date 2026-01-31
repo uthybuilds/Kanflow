@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Stack, router, useNavigation } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { taskService } from "../../src/services/taskService";
 import { supabase } from "../../src/lib/supabase";
 import { X, Calendar } from "lucide-react-native";
@@ -112,7 +113,7 @@ export default function CreateTaskScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <StatusBar style="light" />
 
       <KeyboardAvoidingView
@@ -233,23 +234,23 @@ export default function CreateTaskScreen() {
               </TouchableOpacity>
             </View>
           </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.createButton}
+              onPress={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.createButtonText}>Create Task</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.createButton}
-          onPress={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.createButtonText}>Create Task</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -260,7 +261,9 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingTop: 40, // Extra padding for header clearance
     gap: 24,
+    paddingBottom: 40,
   },
   formGroup: {
     gap: 8,
@@ -320,11 +323,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
   },
-  footer: {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#27272a",
-    backgroundColor: "#09090b",
+  buttonContainer: {
+    marginTop: 20,
   },
   createButton: {
     backgroundColor: "#2563eb",
