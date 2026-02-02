@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "9bd32085-bfbe-4a79-bb18-3ca9ac149b6b"
+      }
+    },
+    "android": {
+      "package": "com.uthybuilds.kanflow"
+    }
+  }
+}
