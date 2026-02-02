@@ -32,6 +32,9 @@
         "expo-build-properties",
         {
           "android": {
+            "extraGradleProps": {
+              "org.gradle.jvmargs": "-Xmx3g"
+            },
             "packagingOptions": {
               "pickFirst": ["lib/**/libc++_shared.so"]
             }
