@@ -26,22 +26,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "extraGradleProps": {
-              "org.gradle.jvmargs": "-Xmx3g"
-            },
-            "packagingOptions": {
-              "pickFirst": ["lib/**/libc++_shared.so"]
-            }
-          }
-        }
-      ]
-    ],
+    "plugins": ["expo-router"],
     "scheme": "kanflow",
     "extra": {
       "router": {},
