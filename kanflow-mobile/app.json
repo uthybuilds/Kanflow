@@ -14,14 +14,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kanflow.mobile"
+      "bundleIdentifier": "com.uthybuilds.kanflow"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#09090b"
       },
-      "package": "com.kanflow.mobile"
+      "package": "com.uthybuilds.kanflow"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -59,17 +59,10 @@ const HeaderLeft = () => (
   <TouchableOpacity
     onPress={() => router.back()}
     style={{
-      width: 40,
-      height: 40,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#18181b",
-      borderRadius: 20,
-      borderWidth: 1,
-      borderColor: "#27272a",
+      padding: 8,
     }}
   >
-    <ArrowLeft size={20} color="#fff" />
+    <ArrowLeft size={24} color="#fff" />
   </TouchableOpacity>
 );
 
@@ -118,17 +111,10 @@ export default function EditTaskScreen() {
         <TouchableOpacity
           onPress={handleDelete}
           style={{
-            width: 40,
-            height: 40,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(239, 68, 68, 0.1)", // Red tint for delete
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: "rgba(239, 68, 68, 0.2)",
+            padding: 8,
           }}
         >
-          <Trash2 size={20} color="#ef4444" />
+          <Trash2 size={24} color="#ef4444" />
         </TouchableOpacity>
       ),
     });
